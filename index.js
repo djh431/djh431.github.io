@@ -47,7 +47,7 @@ function reset(){
 	pickedColor = pickColor();
 	colorDisplay.textContent = pickedColor;
 	resetButton.textContent = "New Colors";
-	messageDisplay.textContent = "Select" pickedColor;
+	messageDisplay.textContent = "Select Color";
 	for(var i =0; i < squares.length; i++){
 		if(colors[i]){
 			squares[i].style.display = "block";
