@@ -1,59 +1,92 @@
-var p1Button = document.querySelector("#p1");
-var p2Button = document.getElementById("p2");
-var resetButton = document.getElementById("reset");
-var p1Display = document.querySelector("#p1Display");
-var p2Display = document.querySelector("#p2Display");
-var numInput = document.querySelector("input");
-var winningScoreDisplay = document.querySelector("#WinningScore");
-var p1Score = 0;
-var p2Score = 0;
-var gameOver = false;
-var WinningScore = 5;
+var numOfSquares = 6;
+var colors = [];
+var pickedColor;
+var squares = document.querySelectorAll(".square");
+var colorDisplay = document.getElementById("colorDisplay");
+var messageDisplay = document.querySelector("#message");
+var h1 = document.querySelector("h1");
+var resetButton = document.querySelector("#reset");
+var modeButtons = document.querySelectorAll(".mode");
 
-p1Button.addEventListener("click", function() {
-	if(!gameOver){
-	p1Score++;
-		if(p1Score === WinningScore){
-			p1Display.classList.add("winner");
-			gameOver = true;
-		}
-		p1Display.textContent = p1Score;
-	}
-});
+init();
+function init(){
+	setupModeButtons();
+	setupSquares();
+	reset();
+}
+function setupModeButtons(){
+		for(var i = 0; i < modeButtons.length; i++){
+		modeButtons[i].addEventListener("click", function(){
+			modeButtons[0].classList.remove("selected");
+			modeButtons[1].classList.remove("selected");
+			this.classList.add("selected");
+			this.textContent === "Easy" ? numOfSquares = 3: numOfSquares = 6;
+			reset();
 
-p2Button.addEventListener("click", function(){
-	if(!gameOver){
-	p2Score++;
-		if(p2Score === WinningScore){
-			p2Display.classList.add("winner");
-			gameOver = true;
-		}
-		p2Display.textContent = p2Score;
-	}
-});
-
-resetButton.addEventListener("click", function(){
-	p1Score = 0;
-	p2Score = 0;
-	p1Display.textContent = 0;
-	p2Display.textContent =0;
-	p1Display.classList.remove("winner");
-	p2Display.classList.remove("winner");
-	gameOver = true;
-});
-
+		});
+}
+}
+function setupSquares(){
+		for(var i = 0; i < squares.length; i++){
+		squares[i].addEventListener("click", function(){
+			var clickedColor = this.style.background;
+			if(clickedColor === pickedColor){
+				messageDisplay.textContent = "Correct!";
+				resetButton.textContent = "Play Again?";
+				changeColors(clickedColor);
+				h1.style.background = clickedColor;
+			} else {
+				this.style.background = "#232323";
+				messageDisplay.textContent = "Try Again";
+			}
+		})
+	};
+}
 function reset(){
-	p1Score = 0;
-	p2Score = 0;
-	p1Display.textContent = 0;
-	p2Display.textContent =0;
-	p1Display.classList.remove("winner");
-	p2Display.classList.remove("winner");
-	gameOver = false;
+	colors = generateRandomColors(numOfSquares);
+	pickedColor = pickColor();
+	colorDisplay.textContent = pickedColor;
+	resetButton.textContent = "New Colors";
+	messageDisplay.textContent = "";
+	for(var i =0; i < squares.length; i++){
+		if(colors[i]){
+			squares[i].style.display = "block";
+			squares[i].style.background = colors[i];
+		} else {
+			squares[i].style.display = "none";
+		};
+	}
+	h1.style.background = "steelblue";
 }
 
-numInput.addEventListener("change", function(){
-	winningScoreDisplay.textContent = numInput.value;
-	WinningScore = Number(numInput.value);
+resetButton.addEventListener("click", function(){
 	reset();
 });
+
+colorDisplay.textContent = pickedColor;
+
+
+function changeColors(color){
+	for( var i = 0; i < colors.length; i++)
+		squares[i].style.background = color;
+}
+function pickColor(){
+	var random = Math.floor(Math.random() * colors.length);
+	return colors[random];
+}
+
+function generateRandomColors(num){
+	var arr = []
+	for(var i = 0; i < num; i++){
+		arr.push(randomColor())
+	}
+	return arr;
+}
+
+function randomColor(){
+	var r = Math.floor(Math.random() * 256);
+	var g = Math.floor(Math.random() * 256);
+	var b = Math.floor(Math.random() * 256);
+	"rgb(r, g, b)"
+	return"rgb(" + r + ", " + g +", " + b + ")";
+}
