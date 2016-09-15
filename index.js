@@ -68,7 +68,6 @@ function reset(){
 			squares[i].style.display = "none";
 		};
 	}
-	h1.style.background = "steelblue";
 }
 
 resetButton.addEventListener("click", function(){
