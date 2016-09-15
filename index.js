@@ -19,8 +19,19 @@ function setupModeButtons(){
 		modeButtons[i].addEventListener("click", function(){
 			modeButtons[0].classList.remove("selected");
 			modeButtons[1].classList.remove("selected");
+			modeButtons[2].classList.remove("selected");
 			this.classList.add("selected");
-			this.textContent === "Easy" ? numOfSquares = 3: numOfSquares = 6;
+			// this.textContent === "Easy" ? numOfSquares = 3: numOfSquares = 6;
+			if(this.textContent === "Easy"){
+				numOfSquares = 3;
+			} else if(this.textContent === "Hard"){
+				numOfSquares = 9;
+			} else if(this.textContent === "Expert"){
+				numOfSquares = 12;
+			}
+			 else {
+				numOfSquares = 6;
+			}
 			reset();
 
 		});
