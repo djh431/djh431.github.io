@@ -7,6 +7,7 @@ var messageDisplay = document.querySelector("#message");
 var h1 = document.querySelector("h1");
 var resetButton = document.querySelector("#reset");
 var modeButtons = document.querySelectorAll(".mode");
+var body = document.querySelector("body");
 
 init();
 function init(){
@@ -69,6 +70,7 @@ function reset(){
 			squares[i].style.display = "none";
 		};
 	}
+	body.style.background = "#232323";
 }
 
 resetButton.addEventListener("click", function(){
