@@ -70,7 +70,7 @@ function reset(){
 			squares[i].style.display = "none";
 		};
 	}
-	body.style.background = "#232323";
+	body.style.background = "steelblue";
 }
 
 resetButton.addEventListener("click", function(){
