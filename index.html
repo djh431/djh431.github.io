@@ -168,7 +168,7 @@ var keyData = {
 	}
 }
 
-var circles =[];
+var circles = [];
 
 	function onKeyDown(event) {
 	if(keyData[event.key]){
@@ -189,7 +189,6 @@ function onFrame(event){
 		circles[i].scale(.9);
 		if(circles[i].area < 1){
 			circles[i].remove();
-			cricles.splice(i, 1);
 		}
 	}
 }
